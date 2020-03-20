@@ -1,5 +1,5 @@
 # opencv
-installation steps::
+#installation steps::
 Set platform target to x64 — Pre-built binaries are built for x64 Windows platforms.
 Add to Include Directories — "opencv/build/include "
 Add to Library Directories —" opencv/build/x64/vc15/lib "Tell the linker where it can find the lib files for different modules.
