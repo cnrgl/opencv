@@ -1,0 +1,35 @@
+static_cast----------------------------------------------------------------------------
+static_cast is used for cases where you basically want to reverse an implicit conversion, 
+with a few restrictions and additions.
+
+
+
+dynamic_cast---------------------------------------------------------------------------
+dynamic_cast is useful when you don't know what the dynamic type of the object is. 
+It returns a null pointer if the object referred to doesn't contain the type casted to as a base class
+struct Base { };
+struct Derived : Base { };
+int main() {
+  Derived d; Base *b = &d;
+  dynamic_cast<Derived*>(b); // Invalid
+}
+An "up-cast" (cast to the base class) is always valid with both static_cast and dynamic_cast, 
+and also without any cast, as an "up-cast" is an implicit conversion.
+
+
+
+Reinterpret cast-------------------------------------------------------------------------
+To force the pointer conversion, in the same way as the C-style cast does in the background,
+the reinterpret cast would be used instead.
+int *r = reinterpret_cast<int*>(&c); // forced conversion
+This cast handles conversions between certain unrelated types, such as from one pointer type to another
+ incompatible pointer type. It will simply perform a binary copy of the data without altering 
+the underlying bit pattern. Note that the result of such a low-level operation is system-specific 
+and therefore not portable. It should be used with caution if it cannot be avoided altogether.
+
+
+
+Const cast--------------------------------------------------------------------------------
+This one is primarily used to add or remove the const modifier of a variable.
+const int myConst = 5;
+int *nonConst = const_cast<int*>(&myConst); // removes const

@@ -1,0 +1,138 @@
+explicit keyword prohibit that implicit convert in constructor definition which is allow using operant(= operand) when initilization in constructor
+
+class A{A(int); bool operator==(){};...}
+
+A a=5;//equal to A(5)
+if(a==3)//turns construct func  A(3)
+
+#include <iostream> 
+  
+using namespace std; 
+  
+class Complex 
+{ 
+private: 
+    double real; 
+    double imag; 
+  
+public: 
+    // Default constructor 
+    Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {} 
+  
+    // A method to compare two Complex numbers 
+    bool operator == (Complex rhs) { 
+       return (real == rhs.real && imag == rhs.imag)? true : false; 
+    } 
+}; 
+  
+int main() 
+{ 
+    // a Complex object 
+    Complex com1(3.0, 0.0); 
+  
+    if (com1 == 3.0) 
+       cout << "Same"; 
+    else
+       cout << "Not Same"; 
+     return 0; 
+} 
+if a class has a constructor which can be called with a single argument, then this constructor becomes conversion 
+constructor because such a constructor allows conversion of the single argument to the class being constructed.
+We can avoid such implicit conversions as these may lead to unexpected results. We can make the constructor 
+explicit with the help of explicit keyword.
+(tek arguman ile  çağırılan tanım constructor yapısı tek argümanla çağrılabildiğinden,fonksiyon constructor yapısı 
+ile karıştırılabilir.Bu durumu engellemek için explicit ile contructor yapının bu dönüşümü engellenmelidir.)
+#include <iostream> 
+  
+using namespace std; 
+  
+class Complex 
+{ 
+private: 
+    double real; 
+    double imag; 
+  
+public: 
+    // Default constructor 
+    explicit Complex(double r = 0.0, double i = 0.0) : real(r), imag(i) {} 
+  
+    // A method to compare two Complex numbers 
+    bool operator== (Complex rhs) { 
+       return (real == rhs.real && imag == rhs.imag)? true : false; 
+    } 
+}; 
+  
+int main() 
+{ 
+    // a Complex object 
+    Complex com1(3.0, 0.0); 
+  
+    if (com1 == (Complex)3.0) 
+       cout << "Same"; 
+    else
+       cout << "Not Same"; 
+     return 0; 
+} 
+
+
+
+
+
+
+
+##################################################################################################################
+
+
+A conversion constructor is a single-parameter constructor that is declared without the function specifier explicit.
+ The compiler uses conversion constructors to convert objects from the type of the first parameter to the type of
+ the conversion constructor's class. The following example demonstrates this:
+class Y {
+  int a, b;
+  char* name;
+public:
+  Y(int i) { };
+  Y(const char* n, int j = 0) { };
+};
+
+void add(Y) { };
+
+int main() {
+
+  // equivalent to
+  // obj1 = Y(2)
+  Y obj1 = 2;
+
+  // equivalent to
+  // obj2 = Y("somestring",0)
+  Y obj2 = "somestring";
+
+  // equivalent to
+  // obj1 = Y(10)
+  obj1 = 10;
+
+  // equivalent to
+  // add(Y(5))
+  add(5);
+}
+The above example has the following two conversion constructors:
+Y(int i)which is used to convert integers to objects of class Y.
+Y(const char* n, int j = 0) which is used to convert pointers to strings to objects of class Y.
+The compiler will not implicitly convert types as demonstrated above with constructors declared with the explicit keyword. The compiler will only use explicitly declared constructors in new expressions, the static_cast expressions and explicit casts, and the initialization of bases and members. The following example demonstrates this:
+class A {
+public:
+  explicit A() { };
+  explicit A(int) { };
+};
+
+int main() {
+  A z;
+//  A y = 1;
+  A x = A(1);
+  A w(1);
+  A* v = new A(1);
+  A u = (A)1;
+  A t = static_cast<A>(1);
+}
+The compiler would not allow the statement A y = 1 because this is an implicit conversion; class A has no conversion constructors.
+
+A copy constructor is a conversion constructor.
