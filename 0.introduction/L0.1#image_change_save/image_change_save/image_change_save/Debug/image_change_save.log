@@ -1,0 +1,12 @@
+﻿  image_change_save.cpp
+  
+  1. geçiş başlatılıyor
+  /DEFAULTLIB:msvcprtd işlendi
+  /DEFAULTLIB:MSVCRTD işlendi
+  /DEFAULTLIB:OLDNAMES işlendi
+  
+  Kitaplıklar aranıyor
+      C:\opencv\build\x64\vc15\lib\opencv_world420d.lib aranıyor:
+        "int __cdecl cv::waitKey(int)" (?waitKey@cv@@YAHH@Z) bulundu
+          image_change_save.obj üzerinde başvuruldu
+opencv_world420d.lib(opencv_world420d.dll) : fatal error LNK1112: Modül makine türü 'x64' hedef makine türü 'x86' ile çakışıyor
