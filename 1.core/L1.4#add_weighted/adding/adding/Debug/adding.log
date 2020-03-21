@@ -1,0 +1,2 @@
+﻿  adding.cpp
+opencv_world420d.lib(opencv_world420d.dll) : fatal error LNK1112: Modül makine türü 'x64' hedef makine türü 'x86' ile çakışıyor
